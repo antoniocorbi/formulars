@@ -19,6 +19,7 @@ pub type Line = [u32; 3];
 // Cambiamos el tipo a una referencia de array o array fijo
 pub type Lines = &'static [Line];
 
+#[derive(Debug)]
 pub struct Point3D {
     pub x: f32,
     pub y: f32,

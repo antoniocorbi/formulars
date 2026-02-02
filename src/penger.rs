@@ -13,1630 +13,1632 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-static VS: crate::types::Points = &[
-    crate::types::Point3D {
+use crate::types::{Lines, Point3D, Points};
+
+pub static VS: Points = &[
+    Point3D {
         x: -0.086914,
         y: 0.277547,
         z: 0.400041,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.069555,
         y: 0.329698,
         z: 0.376422,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.125429,
         y: 0.305056,
         z: 0.175577,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.087431,
         y: 0.359323,
         z: 0.182228,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.086914,
         y: 0.277547,
         z: 0.400041,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.069555,
         y: 0.329698,
         z: 0.376422,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.125429,
         y: 0.305056,
         z: 0.175577,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.087431,
         y: 0.359323,
         z: 0.182228,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.162461,
         y: 0.331177,
         z: 0.163170,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.120032,
         y: 0.285356,
         z: 0.287080,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.316913,
         z: 0.150254,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.431152,
         z: 0.159026,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.162461,
         y: 0.331177,
         z: 0.163170,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.120032,
         y: 0.285356,
         z: 0.287080,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.038632,
         y: 0.351515,
         z: 0.295188,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.112575,
         y: 0.300152,
         z: 0.416327,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.283376,
         z: 0.423906,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.339429,
         z: 0.443461,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.038632,
         y: 0.351515,
         z: 0.295188,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.333645,
         z: 0.122512,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.151316,
         y: 0.313187,
         z: 0.289445,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.307518,
         z: 0.456379,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.299713,
         z: 0.285755,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.363275,
         z: 0.294437,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.112575,
         y: 0.300152,
         z: 0.416327,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.151316,
         y: 0.313187,
         z: 0.289445,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.118885,
         y: 0.399961,
         z: 0.192279,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.100036,
         y: 0.433856,
         z: 0.198983,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.102966,
         y: 0.396398,
         z: 0.165539,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.084118,
         y: 0.430293,
         z: 0.172243,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.176608,
         y: 0.439909,
         z: 0.152593,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.157760,
         y: 0.473804,
         z: 0.159297,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.160690,
         y: 0.436346,
         z: 0.125853,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.141841,
         y: 0.470241,
         z: 0.132557,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.106666,
         y: 0.390088,
         z: 0.182523,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.104880,
         y: 0.412922,
         z: 0.202910,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.083687,
         y: 0.431411,
         z: 0.190696,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.085473,
         y: 0.408578,
         z: 0.170310,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.132149,
         y: 0.412268,
         z: 0.142032,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.109170,
         y: 0.453590,
         z: 0.150205,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.155846,
         y: 0.457280,
         z: 0.121927,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.177039,
         y: 0.438791,
         z: 0.134140,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.154060,
         y: 0.480114,
         z: 0.142313,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.175253,
         y: 0.461624,
         z: 0.154527,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.151556,
         y: 0.416612,
         z: 0.174632,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.128577,
         y: 0.457934,
         z: 0.182805,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.081904,
         y: 0.401564,
         z: 0.195735,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.116999,
         y: 0.432110,
         z: 0.139970,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.178822,
         y: 0.468638,
         z: 0.129101,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.143727,
         y: 0.438092,
         z: 0.184867,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.146186,
         y: 0.406646,
         z: 0.156790,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.114539,
         y: 0.463556,
         z: 0.168046,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.118885,
         y: 0.399961,
         z: 0.192279,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.100036,
         y: 0.433856,
         z: 0.198983,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.102966,
         y: 0.396398,
         z: 0.165539,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.084118,
         y: 0.430293,
         z: 0.172243,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.176608,
         y: 0.439909,
         z: 0.152593,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.157760,
         y: 0.473804,
         z: 0.159297,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.160690,
         y: 0.436346,
         z: 0.125853,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.141841,
         y: 0.470241,
         z: 0.132557,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.106666,
         y: 0.390088,
         z: 0.182523,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.104880,
         y: 0.412922,
         z: 0.202910,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.083687,
         y: 0.431411,
         z: 0.190696,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.085473,
         y: 0.408578,
         z: 0.170310,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.132149,
         y: 0.412268,
         z: 0.142032,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.109170,
         y: 0.453590,
         z: 0.150205,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.155846,
         y: 0.457280,
         z: 0.121927,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.177039,
         y: 0.438791,
         z: 0.134140,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.154060,
         y: 0.480114,
         z: 0.142313,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.175253,
         y: 0.461624,
         z: 0.154527,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.151556,
         y: 0.416612,
         z: 0.174632,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.128577,
         y: 0.457934,
         z: 0.182805,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.081904,
         y: 0.401564,
         z: 0.195735,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.116999,
         y: 0.432110,
         z: 0.139970,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.178822,
         y: 0.468638,
         z: 0.129102,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.143727,
         y: 0.438092,
         z: 0.184867,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.146187,
         y: 0.406646,
         z: 0.156790,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.114539,
         y: 0.463556,
         z: 0.168046,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.116485,
         y: 0.600505,
         z: 0.141727,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.261417,
         y: -0.299902,
         z: 0.348366,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.116485,
         y: 0.600505,
         z: 0.141727,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.261417,
         y: -0.299902,
         z: 0.348366,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.112046,
         y: 0.657167,
         z: -0.052576,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.239249,
         y: -0.285613,
         z: -0.195621,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.112046,
         y: 0.657167,
         z: -0.052576,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.239249,
         y: -0.285613,
         z: -0.195621,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.182365,
         y: -0.413886,
         z: -0.130600,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.182365,
         y: -0.413886,
         z: -0.130600,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.185370,
         y: -0.411127,
         z: 0.285766,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.185370,
         y: -0.411127,
         z: 0.285766,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.000000,
         y: -0.280698,
         z: -0.288600,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.685597,
         z: -0.059119,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.000000,
         y: -0.302354,
         z: 0.418056,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: -0.426735,
         z: -0.175525,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.000000,
         y: 0.616801,
         z: 0.172179,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.346767,
         y: -0.313945,
         z: 0.082211,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.134460,
         y: 0.652623,
         z: 0.053817,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.226383,
         y: -0.434593,
         z: 0.081386,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: -0.406050,
         z: 0.064396,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.000000,
         y: 0.702832,
         z: 0.076074,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.148239,
         y: 0.499868,
         z: -0.129503,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.167399,
         y: 0.217376,
         z: -0.179106,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.510360,
         z: -0.177507,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.222228,
         z: -0.243510,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: -0.421023,
         z: 0.303086,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.346767,
         y: -0.313945,
         z: 0.082211,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.134460,
         y: 0.652623,
         z: 0.053817,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.253877,
         y: 0.206739,
         z: -0.012612,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.214625,
         y: 0.479434,
         z: 0.003080,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.158129,
         y: 0.450290,
         z: 0.133907,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.188613,
         y: 0.188153,
         z: 0.148241,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.444652,
         z: 0.202967,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.000000,
         y: 0.189861,
         z: 0.237317,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.226383,
         y: -0.434593,
         z: 0.081386,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.228074,
         y: -0.059677,
         z: -0.205451,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: -0.055601,
         z: -0.288645,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.000000,
         y: -0.077669,
         z: 0.380767,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.148239,
         y: 0.499868,
         z: -0.129503,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.167399,
         y: 0.217376,
         z: -0.179106,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.336477,
         y: -0.071376,
         z: 0.037431,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.258730,
         y: -0.081163,
         z: 0.294948,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.253877,
         y: 0.206739,
         z: -0.012612,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.214625,
         y: 0.479434,
         z: 0.003080,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.158129,
         y: 0.450290,
         z: 0.133907,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.188613,
         y: 0.188153,
         z: 0.148241,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.228074,
         y: -0.059677,
         z: -0.205451,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.336477,
         y: -0.071376,
         z: 0.037431,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.258730,
         y: -0.081163,
         z: 0.294948,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.066239,
         y: 0.677571,
         z: -0.057217,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.213490,
         y: -0.368374,
         z: -0.165516,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.128870,
         y: -0.280276,
         z: -0.267035,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.106735,
         y: -0.422750,
         z: -0.160566,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: -0.373623,
         z: -0.249661,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.314673,
         y: -0.301707,
         z: -0.071136,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.314673,
         y: -0.301707,
         z: -0.071136,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.210922,
         y: -0.428610,
         z: -0.043983,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: -0.423055,
         z: -0.065328,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.244201,
         y: -0.180778,
         z: -0.207684,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.126667,
         y: 0.663471,
         z: -0.006633,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.195294,
         y: 0.491192,
         z: -0.068821,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.711143,
         z: 0.010063,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.213490,
         y: -0.368374,
         z: -0.165516,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.071185,
         y: 0.691313,
         z: 0.070402,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.155241,
         y: 0.365055,
         z: -0.158770,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.303068,
         y: -0.396966,
         z: 0.087021,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.132112,
         y: 0.602600,
         z: -0.089009,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.120944,
         y: -0.422690,
         z: 0.070511,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.183037,
         y: 0.581878,
         z: 0.028539,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.132112,
         y: 0.602600,
         z: -0.089009,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.155241,
         y: 0.365055,
         z: -0.158770,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.244201,
         y: -0.180778,
         z: -0.207684,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.617590,
         z: -0.123992,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.372508,
         z: -0.215321,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: -0.174030,
         z: -0.298421,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.103174,
         y: 0.187991,
         z: 0.210662,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: -0.198444,
         z: 0.419635,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.294693,
         y: 0.065372,
         z: 0.007647,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.129550,
         y: 0.627979,
         z: 0.107967,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.294693,
         y: 0.065372,
         z: 0.007647,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.232020,
         y: 0.349539,
         z: -0.013046,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.323920,
         z: 0.208490,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.088589,
         y: 0.220688,
         z: -0.227407,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.079730,
         y: 0.507125,
         z: -0.165927,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.232020,
         y: 0.349539,
         z: -0.013046,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.195294,
         y: 0.491192,
         z: -0.068821,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.226314,
         y: 0.213436,
         z: -0.101955,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.170260,
         y: 0.326295,
         z: 0.126748,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.000000,
         y: 0.542220,
         z: 0.194351,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.138605,
         y: 0.545492,
         z: 0.141718,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.210922,
         y: -0.428610,
         z: -0.043983,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.224239,
         y: -0.372873,
         z: 0.324377,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.000000,
         y: -0.381400,
         z: 0.379001,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.107381,
         y: -0.417734,
         z: 0.299738,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.069123,
         y: 0.612108,
         z: 0.162110,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.144110,
         y: -0.299803,
         z: 0.404857,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.273464,
         y: -0.200231,
         z: 0.340419,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.086530,
         y: 0.445098,
         z: 0.182669,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.170260,
         y: 0.326295,
         z: 0.126748,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.670466,
         z: 0.131824,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.226314,
         y: 0.213436,
         z: -0.101955,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.129550,
         y: 0.627979,
         z: 0.107967,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.126667,
         y: 0.663471,
         z: -0.006633,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.240899,
         y: 0.196199,
         z: 0.072126,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.202094,
         y: 0.463683,
         z: 0.072293,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.224239,
         y: -0.372873,
         z: 0.324377,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.196495,
         y: 0.073973,
         z: -0.194947,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: 0.077321,
         z: -0.268617,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.000000,
         y: 0.053716,
         z: 0.306623,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.356649,
         y: -0.201172,
         z: 0.064475,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.223708,
         y: 0.050083,
         z: 0.216822,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.302413,
         y: -0.064867,
         z: -0.098045,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.138605,
         y: 0.545492,
         z: 0.141718,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.143359,
         y: -0.079578,
         z: 0.361124,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.273464,
         y: -0.200231,
         z: 0.340419,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.122283,
         y: -0.056588,
         z: -0.268697,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.323489,
         y: -0.077819,
         z: 0.178606,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.183037,
         y: 0.581878,
         z: 0.028539,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.211567,
         y: -0.425514,
         z: 0.204949,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.329913,
         y: -0.309199,
         z: 0.232998,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.303068,
         y: -0.396966,
         z: 0.087021,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.000000,
         y: -0.416129,
         z: 0.193289,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.240899,
         y: 0.196199,
         z: 0.072126,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.202094,
         y: 0.463683,
         z: 0.072293,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.196495,
         y: 0.073973,
         z: -0.194947,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.356649,
         y: -0.201172,
         z: 0.064475,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.223708,
         y: 0.050083,
         z: 0.216822,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.302413,
         y: -0.064867,
         z: -0.098045,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.323489,
         y: -0.077819,
         z: 0.178606,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.211567,
         y: -0.425514,
         z: 0.204949,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.329913,
         y: -0.309199,
         z: 0.232998,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.120944,
         y: -0.422690,
         z: 0.070511,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.128870,
         y: -0.280276,
         z: -0.267035,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.106735,
         y: -0.422750,
         z: -0.160566,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.071185,
         y: 0.691312,
         z: 0.070402,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.103174,
         y: 0.187991,
         z: 0.210662,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.144110,
         y: -0.299803,
         z: 0.404857,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.066239,
         y: 0.677571,
         z: -0.057217,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.079730,
         y: 0.507125,
         z: -0.165927,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.088589,
         y: 0.220688,
         z: -0.227407,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.069123,
         y: 0.612108,
         z: 0.162110,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.107381,
         y: -0.417734,
         z: 0.299738,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.086530,
         y: 0.445098,
         z: 0.182669,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.143359,
         y: -0.079578,
         z: 0.361124,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.122283,
         y: -0.056588,
         z: -0.268697,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.116187,
         y: -0.369086,
         z: -0.229604,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.072661,
         y: 0.612795,
         z: -0.116367,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.116187,
         y: -0.369087,
         z: -0.229604,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.113112,
         y: -0.424606,
         z: 0.196042,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.218688,
         y: 0.336754,
         z: 0.060131,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.082517,
         y: 0.370222,
         z: -0.201199,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.342146,
         y: -0.202745,
         z: 0.218515,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.277483,
         y: -0.384780,
         z: -0.052960,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.342146,
         y: -0.202745,
         z: 0.218515,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.123321,
         y: 0.051288,
         z: 0.282574,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.104612,
         y: 0.076285,
         z: -0.250504,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.263362,
         y: 0.070961,
         z: -0.103638,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.072661,
         y: 0.612795,
         z: -0.116367,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.068288,
         y: 0.700296,
         z: 0.006932,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.218688,
         y: 0.336754,
         z: 0.060131,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.068288,
         y: 0.700296,
         z: 0.006932,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.092843,
         y: 0.323418,
         z: 0.183578,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.277483,
         y: -0.384780,
         z: -0.052960,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.092843,
         y: 0.323418,
         z: 0.183578,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.114344,
         y: -0.430659,
         z: -0.055794,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.069793,
         y: 0.661151,
         z: 0.124576,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.123321,
         y: 0.051288,
         z: 0.282574,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.113112,
         y: -0.424606,
         z: 0.196042,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.123369,
         y: -0.375786,
         z: 0.369703,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.069793,
         y: 0.661151,
         z: 0.124576,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.169024,
         y: 0.594663,
         z: -0.036361,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.151487,
         y: -0.198724,
         z: 0.403451,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.082517,
         y: 0.370222,
         z: -0.201199,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.284665,
         y: -0.386757,
         z: 0.223581,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.284665,
         y: -0.386757,
         z: 0.223581,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.077124,
         y: 0.541621,
         z: 0.179388,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.123369,
         y: -0.375786,
         z: 0.369703,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.322028,
         y: -0.191732,
         z: -0.086948,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.114344,
         y: -0.430659,
         z: -0.055794,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.169024,
         y: 0.594663,
         z: -0.036361,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.208363,
         y: 0.358708,
         z: -0.090994,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.077124,
         y: 0.541621,
         z: 0.179388,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.322028,
         y: -0.191732,
         z: -0.086948,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.173487,
         y: 0.562450,
         z: 0.090260,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.263362,
         y: 0.070961,
         z: -0.103638,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.173487,
         y: 0.562450,
         z: 0.090260,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.131368,
         y: -0.175217,
         z: -0.277201,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.208363,
         y: 0.358708,
         z: -0.090994,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.151487,
         y: -0.198724,
         z: 0.403451,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.282070,
         y: 0.056411,
         z: 0.120093,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.131368,
         y: -0.175217,
         z: -0.277201,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.282071,
         y: 0.056411,
         z: 0.120093,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.104612,
         y: 0.076285,
         z: -0.250504,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.508828,
         y: -0.488737,
         z: 0.156039,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.522541,
         y: -0.410065,
         z: 0.161508,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.282585,
         y: -0.488737,
         z: -0.115427,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.282585,
         y: -0.309773,
         z: -0.115427,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.361756,
         y: -0.488737,
         z: 0.278610,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.364664,
         y: -0.410065,
         z: 0.293084,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.135514,
         y: -0.488737,
         z: 0.007144,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.135514,
         y: -0.309773,
         z: 0.007144,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.411821,
         y: -0.495733,
         z: 0.006876,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.549731,
         y: -0.455582,
         z: 0.172353,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.411821,
         y: -0.288796,
         z: 0.006876,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.273911,
         y: -0.455582,
         z: -0.158601,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.184261,
         y: -0.495733,
         z: -0.083886,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.184261,
         y: -0.288796,
         z: -0.083886,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.094610,
         y: -0.455582,
         z: -0.009170,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.232520,
         y: -0.495733,
         z: 0.156307,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.232520,
         y: -0.288796,
         z: 0.156307,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.370430,
         y: -0.455582,
         z: 0.321783,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.460081,
         y: -0.495733,
         z: 0.247068,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.477521,
         y: -0.396120,
         z: 0.267995,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.445638,
         y: -0.455582,
         z: -0.021308,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.132239,
         y: -0.455582,
         z: -0.146306,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.198703,
         y: -0.455582,
         z: 0.184490,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.512102,
         y: -0.455582,
         z: 0.309488,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.322171,
         y: -0.510414,
         z: 0.081591,
     },
-    crate::types::Point3D {
+    Point3D {
         x: -0.322171,
         y: -0.244774,
         z: 0.081591,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.508827,
         y: -0.488737,
         z: 0.156039,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.522541,
         y: -0.410065,
         z: 0.161508,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.282585,
         y: -0.488737,
         z: -0.115427,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.282585,
         y: -0.309773,
         z: -0.115427,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.361756,
         y: -0.488737,
         z: 0.278610,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.364664,
         y: -0.410065,
         z: 0.293084,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.135514,
         y: -0.488737,
         z: 0.007144,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.135514,
         y: -0.309773,
         z: 0.007144,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.411821,
         y: -0.495733,
         z: 0.006876,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.549731,
         y: -0.455582,
         z: 0.172353,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.411821,
         y: -0.288796,
         z: 0.006876,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.273911,
         y: -0.455582,
         z: -0.158601,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.184261,
         y: -0.495733,
         z: -0.083886,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.184261,
         y: -0.288796,
         z: -0.083886,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.094610,
         y: -0.455582,
         z: -0.009170,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.232520,
         y: -0.495733,
         z: 0.156307,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.232520,
         y: -0.288796,
         z: 0.156307,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.370430,
         y: -0.455582,
         z: 0.321783,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.460080,
         y: -0.495733,
         z: 0.247068,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.477521,
         y: -0.396120,
         z: 0.267995,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.445638,
         y: -0.455582,
         z: -0.021308,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.132239,
         y: -0.455582,
         z: -0.146306,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.198703,
         y: -0.455582,
         z: 0.184490,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.512102,
         y: -0.455582,
         z: 0.309488,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.322171,
         y: -0.510414,
         z: 0.081591,
     },
-    crate::types::Point3D {
+    Point3D {
         x: 0.322171,
         y: -0.244774,
         z: 0.081591,
     },
 ];
 
-static FS: crate::types::Lines = &[
+pub static FS: Lines = &[
     [22, 2, 10],
     [21, 1, 24],
     [7, 23, 14],

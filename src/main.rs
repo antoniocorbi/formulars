@@ -6,5 +6,6 @@ fn main() {
     let ll: types::Lines;
     let p: types::Point3D;
 
-    println!("Hello, world!");
+    println!("point3d[300]  = {:?}", crate::penger::VS[300]);
+    println!("line[300]  = {:?}", crate::penger::FS[300]);
 }
