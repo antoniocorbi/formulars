@@ -27,3 +27,40 @@ pub struct Point3D {
 }
 
 pub type Points = &'static [Point3D];
+
+// Definimos los ejes posibles
+pub enum Axe {
+    X,
+    Y,
+    Z,
+}
+
+impl Point3D {
+    // Función que recibe el punto, el ángulo y el eje de rotación
+    fn rotate(&self, angle: f32, eje: Axe) -> Point3D {
+        let Point3D { x, y, z } = *self;
+        let cos_a = angle.cos();
+        let sin_a = angle.sin();
+
+        match eje {
+            Axe::X => {
+                // X se queda igual
+                let y = y * cos_a - z * sin_a;
+                let z = y * sin_a + z * cos_a;
+                Point3D { x, y, z }
+            }
+            Axe::Y => {
+                // Y se queda igual
+                let x = x * cos_a + z * sin_a;
+                let z = -x * sin_a + z * cos_a;
+                Point3D { x, y, z }
+            }
+            Axe::Z => {
+                // Z se queda igual
+                let x = x * cos_a - y * sin_a;
+                let y = x * sin_a + y * cos_a;
+                Point3D { x, y, z }
+            }
+        }
+    }
+}
