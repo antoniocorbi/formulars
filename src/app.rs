@@ -13,28 +13,81 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-use egui::remap;
-
+// -- Uses: ---------------------------------------------------------------
 use crate::types::Point3D;
+use egui::{pos2, remap, Color32, Rect, Stroke};
 
+// -- Constants: ----------------------------------------------------------
+const MIN_ZOOM: f32 = 0.25;
+const MAX_ZOOM: f32 = 10.00;
+
+const MIN_ANGLE: f32 = 0.00;
+const MAX_ANGLE: f32 = 360.00;
+
+// -- Structs: ------------------------------------------------------------
 pub struct App3D {
     rotx: bool,
     roty: bool,
     rotz: bool,
+    angle: f32,
     zoom: f32,
 }
 
+// -- Implementation App3D: -----------------------------------------------
 impl App3D {
     pub fn new() -> Self {
         Self {
-            rotx: true,
+            rotx: false,
             roty: false,
-            rotz: false,
+            rotz: true,
+            angle: 0.0,
             zoom: 1.0,
         }
     }
+
+    fn draw_circle(&self, painter: &egui::Painter) {
+        // Obtener las dimensiones
+        // let width = painter.clip_rect().width();
+        // let height = painter.clip_rect().height();
+
+        let world: Rect = Rect::from_min_max(pos2(0.0, 0.0), pos2(100.0, 100.0));
+        let screen = painter.clip_rect();
+        let scrx = remap(50.0, world.min.x..=world.max.x, screen.min.x..=screen.max.x);
+        let scry = remap(50.0, world.min.y..=world.max.y, screen.min.y..=screen.max.y);
+
+        // También puedes obtener los límites
+        // let min = painter.clip_rect().min; // Esquina superior izquierda (Pos2)
+        // let max = painter.clip_rect().max; // Esquina inferior derecha (Pos2)
+
+        let centro = pos2(scrx, scry);
+        let radio = 1.0 * self.zoom;
+        let color = Color32::from_rgb(255, 255, 255);
+
+        painter.circle_filled(centro, radio, color);
+    }
+
+    pub fn draw_object3D(&self, painter: &egui::Painter) {
+        let world: Rect = Rect::from_min_max(pos2(0.0, 0.0), pos2(1.0, 1.0));
+        let screen: Rect = painter.clip_rect();
+        let dz = self.zoom;
+
+        for f in crate::penger::FS {
+            for i in 0..f.len() {
+                let a = crate::penger::VS[f[i] as usize];
+                let b = crate::penger::VS[f[(i + 1) % f.len()] as usize];
+                // dbg!(a);
+                // dbg!(b);
+            }
+        }
+    }
+
+    pub fn draw_contents(&self, painter: &egui::Painter) {
+        self.draw_circle(painter);
+        self.draw_object3D(painter);
+    }
 }
 
+// -- Implementation eframe@App3D: ----------------------------------------
 impl eframe::App for App3D {
     /// Called by the framework to save state before shutdown.
     // fn save(&mut self, storage: &mut dyn eframe::Storage) {
@@ -49,7 +102,7 @@ impl eframe::App for App3D {
                 ui.horizontal(|ui| {
                     ui.colored_label(egui::Color32::RED, "·:Penger 3D:·");
 
-                    ui.colored_label(egui::Color32::BLUE, "Theme: ");
+                    ui.colored_label(egui::Color32::LIGHT_BLUE, "Theme: ");
                     egui::widgets::global_theme_preference_buttons(ui);
 
                     let is_web = cfg!(target_arch = "wasm32");
@@ -66,8 +119,28 @@ impl eframe::App for App3D {
                 ui.separator();
 
                 ui.horizontal(|ui| {
+                    ui.checkbox(&mut self.rotx, "Rotate X");
+                    ui.checkbox(&mut self.roty, "Rotate Y");
+                    ui.checkbox(&mut self.rotz, "Rotate Z");
+                    ui.separator();
+                    ui.colored_label(egui::Color32::LIGHT_YELLOW, "Angle: ");
+                    ui.add(
+                        egui::DragValue::new(&mut self.angle)
+                            .speed(0.1)
+                            .range(MIN_ANGLE..=MAX_ANGLE),
+                    );
+                    ui.separator();
+                    ui.colored_label(egui::Color32::LIGHT_YELLOW, "Zoom: ");
+                    ui.add(
+                        egui::DragValue::new(&mut self.zoom)
+                            .speed(0.1)
+                            .range(MIN_ZOOM..=MAX_ZOOM),
+                    );
+                    ui.separator();
+
                     if ui.button("Restart View").clicked() {
                         //self.calculate_bounds_and_fit(ui.available_rect_before_wrap());
+                        *self = Self::new();
                     }
                 });
 
@@ -84,6 +157,8 @@ impl eframe::App for App3D {
                 0.0,
                 egui::Color32::from_rgb(30, 30, 30),
             );
+
+            self.draw_contents(&painter);
 
             // Si hay datos cargados pero la escala aún es la predeterminada (1.0),
             // y aún no se ha ajustado, hacerlo ahora.

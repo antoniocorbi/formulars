@@ -20,6 +20,12 @@ pub type Line = [u32; 3];
 pub type Lines = &'static [Line];
 
 #[derive(Debug)]
+pub struct Point2D {
+    pub x: f32,
+    pub y: f32,
+}
+
+#[derive(Debug, Copy, Clone)]
 pub struct Point3D {
     pub x: f32,
     pub y: f32,
@@ -36,13 +42,29 @@ pub enum Axe {
 }
 
 impl Point3D {
+    fn translate_z(&self, dz: f32) -> Self {
+        Point3D {
+            x: self.x,
+            y: self.y,
+            z: self.z + dz,
+        }
+    }
+
+    fn project(&self) -> Point2D {
+        Point2D {
+            x: self.x / self.z,
+            y: self.y / self.z,
+        }
+    }
+
     // Función que recibe el punto, el ángulo y el eje de rotación
-    fn rotate(&self, angle: f32, eje: Axe) -> Point3D {
+    fn rotate(&self, angle: f32, axe: Axe) -> Point3D {
+        let angle = angle.to_radians();
         let Point3D { x, y, z } = *self;
         let cos_a = angle.cos();
         let sin_a = angle.sin();
 
-        match eje {
+        match axe {
             Axe::X => {
                 // X se queda igual
                 let y = y * cos_a - z * sin_a;
