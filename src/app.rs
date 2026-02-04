@@ -19,7 +19,7 @@ use egui::{pos2, remap, Color32, Pos2, Rect, Stroke};
 
 // -- Constants: ----------------------------------------------------------
 const MIN_ZOOM: f32 = 0.25;
-const MAX_ZOOM: f32 = 20.00;
+const MAX_ZOOM: f32 = 15.00;
 
 const MIN_ANGLE_STEP: f32 = 0.00;
 const MAX_ANGLE_STEP: f32 = 10.00;
@@ -81,9 +81,9 @@ impl App3D {
     }
 
     pub fn draw_object3D(&self, painter: &egui::Painter) {
-        let worldr: Rect = Rect::from_min_max(pos2(-1.0, -1.0), pos2(1.0, 1.0));
+        let dz = MAX_ZOOM - self.zoom;
+        let worldr: Rect = Rect::from_min_max(pos2(-1.0, -1.0), pos2(1.0_f32, 1.0_f32));
         let screenr: Rect = painter.clip_rect();
-        let dz = self.zoom;
         static mut ANGLE: f32 = 0.0;
         unsafe {
             ANGLE = (ANGLE + self.angle_step) % 360.0;
@@ -128,7 +128,7 @@ impl App3D {
     }
 
     pub fn draw_contents(&self, painter: &egui::Painter) {
-        self.draw_circle(painter);
+        //self.draw_circle(painter);
         self.draw_object3D(painter);
     }
 }
@@ -194,32 +194,20 @@ impl eframe::App for App3D {
             });
 
             // El área de dibujo para el objeto 3D
-            let available_rect_before_wrap = ui.available_rect_before_wrap();
-            let painter = ui.painter_at(available_rect_before_wrap);
+            let mut available_rect_before_wrap = ui.available_rect_before_wrap();
+            available_rect_before_wrap.max.y -= 40.0; // Important for clipping
+            let mut painter = ui.painter_at(available_rect_before_wrap);
 
             // Dibujar un fondo para el área del mapa
             painter.rect_filled(
                 available_rect_before_wrap,
                 0.0,
-                egui::Color32::from_rgb(30, 30, 30),
+                egui::Color32::from_rgb(50, 50, 50),
             );
+            let screenr: Rect = painter.clip_rect();
+            painter.set_clip_rect(screenr);
 
             self.draw_contents(&painter);
-
-            // Si hay datos cargados pero la escala aún es la predeterminada (1.0),
-            // y aún no se ha ajustado, hacerlo ahora.
-            // Esto asegura que el mapa se ajuste automáticamente en la primera renderización
-            // o después de una carga.
-            if self.zoom == 1.0 {
-                //self.calculate_bounds_and_fit(available_rect_before_wrap);
-            }
-
-            // Draw the points
-            // for feature in &self.geo_features {
-            //     if let Some(geometry) = &feature.geometry {
-            //         self.draw_geometry(&painter, &geometry.value, available_rect_before_wrap);
-            //     }
-            // }
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 powered_by_egui_and_eframe(ui);
