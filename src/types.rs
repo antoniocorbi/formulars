@@ -13,6 +13,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+use egui::Rect;
+
 pub type Line = [u32; 3];
 
 // pub type Lines = Vec<Line>;
@@ -39,6 +41,22 @@ pub enum Axe {
     X,
     Y,
     Z,
+}
+
+impl Point2D {
+    pub fn world2screen(&self, world: Rect, screen: Rect) -> Point2D {
+        let x = egui::remap(
+            self.x,
+            world.min.x..=world.max.x,
+            screen.min.x..=screen.max.x,
+        );
+        let y = egui::remap(
+            self.y,
+            world.min.y..=world.max.y,
+            screen.min.y..=screen.max.y,
+        );
+        Point2D { x, y }
+    }
 }
 
 impl Point3D {

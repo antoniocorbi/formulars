@@ -14,8 +14,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // -- Uses: ---------------------------------------------------------------
-use crate::types::{Point2D, Point3D};
-use egui::{pos2, remap, Color32, Rect, Stroke};
+use crate::types::{Axe, Point2D, Point3D};
+use egui::{pos2, remap, Color32, Pos2, Rect, Stroke};
 
 // -- Constants: ----------------------------------------------------------
 const MIN_ZOOM: f32 = 0.25;
@@ -66,32 +66,65 @@ impl App3D {
         painter.circle_filled(centro, radio, color);
     }
 
-    fn world2screen(p: Point2D, painter: &egui::Painter) -> Point2D {
-        let world: Rect = Rect::from_min_max(pos2(0.0, 0.0), pos2(1.0, 1.0));
-        let screen: Rect = painter.clip_rect();
+    // fn world2screen(p: Point2D, painter: &egui::Painter) -> Point2D {
+    //     let world: Rect = Rect::from_min_max(pos2(-1.0, -1.0), pos2(1.0, 1.0));
+    //     let screen: Rect = painter.clip_rect();
+    //
+    //     let x = egui::remap(p.x, world.min.x..=world.max.x, screen.min.x..=screen.max.x);
+    //     let y = egui::remap(p.y, world.min.y..=world.max.y, screen.min.y..=screen.max.y);
+    //     Point2D { x, y }
+    // }
 
-        let x = egui::remap(p.x, world.min.x..=world.max.x, screen.min.x..=screen.max.x);
-        let y = egui::remap(p.y, world.min.y..=world.max.y, screen.min.y..=screen.max.y);
-        Point2D { x, y }
+    fn draw_lines(lines: &Vec<Pos2>, painter: &egui::Painter) {
+        let stroke = Stroke::new(0.5, egui::Color32::LIGHT_YELLOW);
+        painter.line(lines.to_vec(), stroke);
     }
 
     pub fn draw_object3D(&self, painter: &egui::Painter) {
-        let world: Rect = Rect::from_min_max(pos2(0.0, 0.0), pos2(1.0, 1.0));
-        let screen: Rect = painter.clip_rect();
+        let worldr: Rect = Rect::from_min_max(pos2(-1.0, -1.0), pos2(1.0, 1.0));
+        let screenr: Rect = painter.clip_rect();
         let dz = self.zoom;
+        static mut ANGLE: f32 = 0.0;
+        unsafe {
+            ANGLE = (ANGLE + self.angle_step) % 360.0;
+            // if ANGLE > 360.0 {
+            //     ANGLE = 0.0;
+            // }
+        }
 
+        let mut lines: Vec<Pos2> = vec![];
         for f in crate::penger::FS {
             for i in 0..f.len() {
-                let a = crate::penger::VS[f[i] as usize];
-                let b = crate::penger::VS[f[(i + 1) % f.len()] as usize];
+                let mut a = crate::penger::VS[f[i] as usize];
+                let mut b = crate::penger::VS[f[(i + 1) % f.len()] as usize];
 
-                let p1 = App3D::world2screen(a.translate_z(dz).project(), painter);
-                let p2 = App3D::world2screen(b.translate_z(dz).project(), painter);
+                unsafe {
+                    if self.rotx {
+                        a = a.rotate(ANGLE, Axe::X);
+                        b = b.rotate(ANGLE, Axe::X);
+                    }
+                    if self.roty {
+                        a = a.rotate(ANGLE, Axe::Y);
+                        b = b.rotate(ANGLE, Axe::Y);
+                    }
+                    if self.rotz {
+                        a = a.rotate(ANGLE, Axe::Z);
+                        b = b.rotate(ANGLE, Axe::Z);
+                    }
+                }
+                // let p1 = App3D::world2screen(a.translate_z(dz).project(), painter);
+                // let p2 = App3D::world2screen(b.translate_z(dz).project(), painter);
 
-                // dbg!(a);
-                // dbg!(b);
+                let p1 = a.translate_z(dz).project().world2screen(worldr, screenr);
+                let p2 = b.translate_z(dz).project().world2screen(worldr, screenr);
+
+                let p1: Pos2 = pos2(p1.x, p1.y);
+                let p2: Pos2 = pos2(p2.x, p2.y);
+                lines.push(p1);
+                lines.push(p2);
             }
         }
+        App3D::draw_lines(&lines, painter);
     }
 
     pub fn draw_contents(&self, painter: &egui::Painter) {
@@ -160,7 +193,7 @@ impl eframe::App for App3D {
                 ui.separator();
             });
 
-            // El área de dibujo para el mapa
+            // El área de dibujo para el objeto 3D
             let available_rect_before_wrap = ui.available_rect_before_wrap();
             let painter = ui.painter_at(available_rect_before_wrap);
 
