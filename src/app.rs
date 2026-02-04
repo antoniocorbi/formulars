@@ -14,22 +14,22 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // -- Uses: ---------------------------------------------------------------
-use crate::types::Point3D;
+use crate::types::{Point2D, Point3D};
 use egui::{pos2, remap, Color32, Rect, Stroke};
 
 // -- Constants: ----------------------------------------------------------
 const MIN_ZOOM: f32 = 0.25;
-const MAX_ZOOM: f32 = 10.00;
+const MAX_ZOOM: f32 = 20.00;
 
-const MIN_ANGLE: f32 = 0.00;
-const MAX_ANGLE: f32 = 360.00;
+const MIN_ANGLE_STEP: f32 = 0.00;
+const MAX_ANGLE_STEP: f32 = 10.00;
 
 // -- Structs: ------------------------------------------------------------
 pub struct App3D {
     rotx: bool,
     roty: bool,
     rotz: bool,
-    angle: f32,
+    angle_step: f32,
     zoom: f32,
 }
 
@@ -40,7 +40,7 @@ impl App3D {
             rotx: false,
             roty: false,
             rotz: true,
-            angle: 0.0,
+            angle_step: 0.0,
             zoom: 1.0,
         }
     }
@@ -66,6 +66,15 @@ impl App3D {
         painter.circle_filled(centro, radio, color);
     }
 
+    fn world2screen(p: Point2D, painter: &egui::Painter) -> Point2D {
+        let world: Rect = Rect::from_min_max(pos2(0.0, 0.0), pos2(1.0, 1.0));
+        let screen: Rect = painter.clip_rect();
+
+        let x = egui::remap(p.x, world.min.x..=world.max.x, screen.min.x..=screen.max.x);
+        let y = egui::remap(p.y, world.min.y..=world.max.y, screen.min.y..=screen.max.y);
+        Point2D { x, y }
+    }
+
     pub fn draw_object3D(&self, painter: &egui::Painter) {
         let world: Rect = Rect::from_min_max(pos2(0.0, 0.0), pos2(1.0, 1.0));
         let screen: Rect = painter.clip_rect();
@@ -75,6 +84,10 @@ impl App3D {
             for i in 0..f.len() {
                 let a = crate::penger::VS[f[i] as usize];
                 let b = crate::penger::VS[f[(i + 1) % f.len()] as usize];
+
+                let p1 = App3D::world2screen(a.translate_z(dz).project(), painter);
+                let p2 = App3D::world2screen(b.translate_z(dz).project(), painter);
+
                 // dbg!(a);
                 // dbg!(b);
             }
@@ -123,11 +136,11 @@ impl eframe::App for App3D {
                     ui.checkbox(&mut self.roty, "Rotate Y");
                     ui.checkbox(&mut self.rotz, "Rotate Z");
                     ui.separator();
-                    ui.colored_label(egui::Color32::LIGHT_YELLOW, "Angle: ");
+                    ui.colored_label(egui::Color32::LIGHT_YELLOW, "Angle Step: ");
                     ui.add(
-                        egui::DragValue::new(&mut self.angle)
+                        egui::DragValue::new(&mut self.angle_step)
                             .speed(0.1)
-                            .range(MIN_ANGLE..=MAX_ANGLE),
+                            .range(MIN_ANGLE_STEP..=MAX_ANGLE_STEP),
                     );
                     ui.separator();
                     ui.colored_label(egui::Color32::LIGHT_YELLOW, "Zoom: ");

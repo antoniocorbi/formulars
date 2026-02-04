@@ -19,7 +19,7 @@ pub type Line = [u32; 3];
 // Cambiamos el tipo a una referencia de array o array fijo
 pub type Lines = &'static [Line];
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Point2D {
     pub x: f32,
     pub y: f32,
@@ -42,7 +42,7 @@ pub enum Axe {
 }
 
 impl Point3D {
-    fn translate_z(&self, dz: f32) -> Self {
+    pub fn translate_z(&self, dz: f32) -> Self {
         Point3D {
             x: self.x,
             y: self.y,
@@ -50,7 +50,7 @@ impl Point3D {
         }
     }
 
-    fn project(&self) -> Point2D {
+    pub fn project(&self) -> Point2D {
         Point2D {
             x: self.x / self.z,
             y: self.y / self.z,
@@ -58,7 +58,7 @@ impl Point3D {
     }
 
     // Función que recibe el punto, el ángulo y el eje de rotación
-    fn rotate(&self, angle: f32, axe: Axe) -> Point3D {
+    pub fn rotate(&self, angle: f32, axe: Axe) -> Point3D {
         let angle = angle.to_radians();
         let Point3D { x, y, z } = *self;
         let cos_a = angle.cos();
