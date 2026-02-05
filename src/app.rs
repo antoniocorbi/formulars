@@ -82,7 +82,7 @@ impl App3D {
 
     pub fn draw_object3D(&self, painter: &egui::Painter) {
         let dz = MAX_ZOOM - self.zoom;
-        let worldr: Rect = Rect::from_min_max(pos2(-1.0, -1.0), pos2(1.0_f32, 1.0_f32));
+        let worldr: Rect = Rect::from_min_max(pos2(-1.0, -1.0), pos2(1.0, 1.0));
         let screenr: Rect = painter.clip_rect();
         static mut ANGLE: f32 = 0.0;
         unsafe {
@@ -96,9 +96,9 @@ impl App3D {
         for f in crate::penger::FS {
             for i in 0..f.len() {
                 let mut a = crate::penger::VS[f[i] as usize];
-                a.y = 1.0 - a.y;
+                a.y = -1.0 * a.y; // Invert Y-coordinate top-down
                 let mut b = crate::penger::VS[f[(i + 1) % f.len()] as usize];
-                b.y = 1.0 - b.y;
+                b.y = -1.0 * b.y; // Invert Y-coordinate top-down
 
                 unsafe {
                     if self.rotx {
