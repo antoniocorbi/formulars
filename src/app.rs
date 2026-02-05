@@ -29,6 +29,8 @@ pub struct App3D {
     rotx: bool,
     roty: bool,
     rotz: bool,
+    draw_vs: bool,
+    draw_fs: bool,
     angle_step: f32,
     zoom: f32,
 }
@@ -38,8 +40,10 @@ impl App3D {
     pub fn new() -> Self {
         Self {
             rotx: false,
-            roty: false,
-            rotz: true,
+            roty: true,
+            rotz: false,
+            draw_vs: false,
+            draw_fs: true,
             angle_step: 0.0,
             zoom: 1.0,
         }
@@ -66,14 +70,19 @@ impl App3D {
         painter.circle_filled(centro, radio, color);
     }
 
-    // fn world2screen(p: Point2D, painter: &egui::Painter) -> Point2D {
-    //     let world: Rect = Rect::from_min_max(pos2(-1.0, -1.0), pos2(1.0, 1.0));
-    //     let screen: Rect = painter.clip_rect();
-    //
-    //     let x = egui::remap(p.x, world.min.x..=world.max.x, screen.min.x..=screen.max.x);
-    //     let y = egui::remap(p.y, world.min.y..=world.max.y, screen.min.y..=screen.max.y);
-    //     Point2D { x, y }
-    // }
+    fn draw_point(p: Point2D, zoom: f32, painter: &egui::Painter) {
+        // También puedes obtener los límites
+        // let min = painter.clip_rect().min; // Esquina superior izquierda (Pos2)
+        // let max = painter.clip_rect().max; // Esquina inferior derecha (Pos2)
+
+        let centro = pos2(p.x, p.y);
+        // let radio = zoom.min(3.5);
+        let radio = (zoom + 0.25) / 3.0;
+        // let color = Color32::from_rgb(255, 255, 255);
+        let color = Color32::LIGHT_RED;
+
+        painter.circle_filled(centro, radio, color);
+    }
 
     fn draw_lines(lines: &Vec<Pos2>, painter: &egui::Painter) {
         let stroke = Stroke::new(0.5, egui::Color32::LIGHT_YELLOW);
@@ -92,44 +101,69 @@ impl App3D {
             // }
         }
 
-        let mut lines: Vec<Pos2> = vec![];
-        for f in crate::penger::FS {
-            for i in 0..f.len() {
-                let mut a = crate::penger::VS[f[i] as usize];
-                let mut b = crate::penger::VS[f[(i + 1) % f.len()] as usize];
-                a.y = -1.0 * a.y; // Invert Y-coordinate top-down
-                b.y = -1.0 * b.y; // Invert Y-coordinate top-down
+        // Draw points@vertices
+        if self.draw_vs {
+            for v in crate::penger::VS {
+                let mut a = *v;
+                a.y = -1.0 * a.y;
 
                 unsafe {
                     if self.rotx {
                         a = a.rotate(ANGLE, Axe::X);
-                        b = b.rotate(ANGLE, Axe::X);
                     }
                     if self.roty {
                         a = a.rotate(ANGLE, Axe::Y);
-                        b = b.rotate(ANGLE, Axe::Y);
                     }
                     if self.rotz {
                         a = a.rotate(ANGLE, Axe::Z);
-                        b = b.rotate(ANGLE, Axe::Z);
                     }
                 }
-                // let p1 = App3D::world2screen(a.translate_z(dz).project(), painter);
-                // let p2 = App3D::world2screen(b.translate_z(dz).project(), painter);
-
-                // let p1 = a.translate_z(dz).project().world2screen(worldr, screenr);
-                // let p2 = b.translate_z(dz).project().world2screen(worldr, screenr);
-
-                let p1 = a.convert_to_2D(dz, &worldr, &screenr);
-                let p2 = b.convert_to_2D(dz, &worldr, &screenr);
-
-                let p1: Pos2 = pos2(p1.x, p1.y);
-                let p2: Pos2 = pos2(p2.x, p2.y);
-                lines.push(p1);
-                lines.push(p2);
+                let p2d = a.convert_to_2D(dz, &worldr, &screenr);
+                App3D::draw_point(p2d, self.zoom, painter);
             }
         }
-        App3D::draw_lines(&lines, painter);
+
+        // Draw Lines between vertices
+        if self.draw_fs {
+            let mut lines: Vec<Pos2> = vec![];
+            for f in crate::penger::FS {
+                for i in 0..f.len() {
+                    let mut a = crate::penger::VS[f[i] as usize];
+                    let mut b = crate::penger::VS[f[(i + 1) % f.len()] as usize];
+                    a.y = -1.0 * a.y; // Invert Y-coordinate top-down
+                    b.y = -1.0 * b.y; // Invert Y-coordinate top-down
+
+                    unsafe {
+                        if self.rotx {
+                            a = a.rotate(ANGLE, Axe::X);
+                            b = b.rotate(ANGLE, Axe::X);
+                        }
+                        if self.roty {
+                            a = a.rotate(ANGLE, Axe::Y);
+                            b = b.rotate(ANGLE, Axe::Y);
+                        }
+                        if self.rotz {
+                            a = a.rotate(ANGLE, Axe::Z);
+                            b = b.rotate(ANGLE, Axe::Z);
+                        }
+                    }
+                    // let p1 = App3D::world2screen(a.translate_z(dz).project(), painter);
+                    // let p2 = App3D::world2screen(b.translate_z(dz).project(), painter);
+
+                    // let p1 = a.translate_z(dz).project().world2screen(worldr, screenr);
+                    // let p2 = b.translate_z(dz).project().world2screen(worldr, screenr);
+
+                    let p1 = a.convert_to_2D(dz, &worldr, &screenr);
+                    let p2 = b.convert_to_2D(dz, &worldr, &screenr);
+
+                    let p1: Pos2 = pos2(p1.x, p1.y);
+                    let p2: Pos2 = pos2(p2.x, p2.y);
+                    lines.push(p1);
+                    lines.push(p2);
+                }
+            }
+            App3D::draw_lines(&lines, painter);
+        }
     }
 
     pub fn draw_contents(&self, painter: &egui::Painter) {
@@ -174,12 +208,20 @@ impl eframe::App for App3D {
                     ui.checkbox(&mut self.roty, "Rotate Y");
                     ui.checkbox(&mut self.rotz, "Rotate Z");
                     ui.separator();
+
+                    ui.horizontal(|ui| {
+                        ui.checkbox(&mut self.draw_vs, "Vertices");
+                        ui.checkbox(&mut self.draw_fs, "Faces");
+                    });
+
+                    ui.separator();
                     ui.colored_label(egui::Color32::LIGHT_YELLOW, "Angle Step: ");
                     ui.add(
                         egui::DragValue::new(&mut self.angle_step)
                             .speed(0.1)
                             .range(MIN_ANGLE_STEP..=MAX_ANGLE_STEP),
                     );
+
                     ui.separator();
                     ui.colored_label(egui::Color32::LIGHT_YELLOW, "Zoom: ");
                     ui.add(
