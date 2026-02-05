@@ -96,8 +96,8 @@ impl App3D {
         for f in crate::penger::FS {
             for i in 0..f.len() {
                 let mut a = crate::penger::VS[f[i] as usize];
-                a.y = -1.0 * a.y; // Invert Y-coordinate top-down
                 let mut b = crate::penger::VS[f[(i + 1) % f.len()] as usize];
+                a.y = -1.0 * a.y; // Invert Y-coordinate top-down
                 b.y = -1.0 * b.y; // Invert Y-coordinate top-down
 
                 unsafe {
