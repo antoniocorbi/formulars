@@ -35,7 +35,7 @@ fn parse_face(linea: &str) -> Vec<usize> {
         .collect()
 }
 
-pub fn read_obj(fname: &str) -> io::Result<(Points, Lines)> {
+pub fn read_obj(fname: &str) -> io::Result<(Vec<Point3D>, Vec<Vec<usize>>)> {
     // 1. Abrir el archivo
     let path = Path::new("assets/penger.obj");
     let file = File::open(path)?;
@@ -62,7 +62,12 @@ pub fn read_obj(fname: &str) -> io::Result<(Points, Lines)> {
                 .map(|s| s.parse().unwrap())
                 .collect();
             // Ahora coords es algo como [1.0, 0.5, -2.0]
-            vs.push(coords);
+            let p = Point3D {
+                x: coords[0],
+                y: coords[1],
+                z: coords[2],
+            };
+            vs.push(p);
         }
         // println!("{:?}", vs);
 
