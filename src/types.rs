@@ -69,9 +69,11 @@ impl Point3D {
     }
 
     pub fn project(&self) -> Point2D {
+        let d = 5.0;
+        let pval = d / self.z;
         Point2D {
-            x: self.x / self.z,
-            y: self.y / self.z,
+            x: self.x * pval,
+            y: self.y * pval,
         }
     }
 
