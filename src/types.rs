@@ -60,6 +60,12 @@ impl Point2D {
 }
 
 impl Point3D {
+    pub fn convert_to_2D(&self, dz: f32, worldr: &Rect, screenr: &Rect) -> Point2D {
+        self.translate_z(dz)
+            .project()
+            .world2screen(*worldr, *screenr)
+    }
+
     pub fn translate_z(&self, dz: f32) -> Self {
         Point3D {
             x: self.x,

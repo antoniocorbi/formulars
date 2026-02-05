@@ -117,8 +117,11 @@ impl App3D {
                 // let p1 = App3D::world2screen(a.translate_z(dz).project(), painter);
                 // let p2 = App3D::world2screen(b.translate_z(dz).project(), painter);
 
-                let p1 = a.translate_z(dz).project().world2screen(worldr, screenr);
-                let p2 = b.translate_z(dz).project().world2screen(worldr, screenr);
+                // let p1 = a.translate_z(dz).project().world2screen(worldr, screenr);
+                // let p2 = b.translate_z(dz).project().world2screen(worldr, screenr);
+
+                let p1 = a.convert_to_2D(dz, &worldr, &screenr);
+                let p2 = b.convert_to_2D(dz, &worldr, &screenr);
 
                 let p1: Pos2 = pos2(p1.x, p1.y);
                 let p2: Pos2 = pos2(p2.x, p2.y);
