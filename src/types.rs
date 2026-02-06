@@ -15,7 +15,7 @@
 
 use egui::Rect;
 
-pub type Line = [u32; 3];
+pub type Line = [usize; 3];
 
 // pub type Lines = Vec<Line>;
 // Cambiamos el tipo a una referencia de array o array fijo

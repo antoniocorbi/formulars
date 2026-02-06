@@ -42,6 +42,14 @@ pub struct App3D {
 // -- Implementation App3D: -----------------------------------------------
 impl App3D {
     pub fn new() -> Self {
+        let mut fs: Vec<Vec<usize>>;
+
+        // Convertimos el &[&[usize]] a Vec<Vec<usize>>
+        fs = crate::penger::FS
+            .iter()
+            .map(|inner_slice| inner_slice.to_vec())
+            .collect();
+
         Self {
             rotx: false,
             roty: true,
@@ -53,7 +61,7 @@ impl App3D {
             file_path: String::new(),
             error_message: String::new(),
             vs: crate::penger::VS.to_vec(),
-            fs: crate::penger::FS.to_vec(),
+            fs,
         }
     }
 
