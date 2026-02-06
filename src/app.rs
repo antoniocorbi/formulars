@@ -34,6 +34,7 @@ pub struct App3D {
     angle_step: f32,
     zoom: f32,
     file_path: String,
+    error_message: String,
 }
 
 // -- Implementation App3D: -----------------------------------------------
@@ -48,6 +49,7 @@ impl App3D {
             angle_step: 0.0,
             zoom: 1.0,
             file_path: String::new(),
+            error_message: String::new(),
         }
     }
 
@@ -183,19 +185,11 @@ impl eframe::App for App3D {
 
     /// Called each time the UI needs repainting, which may be many times per second.
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+        static TIMEOUT: u32 = 200;
+        static mut ERROR_TIMEOUT: u32 = TIMEOUT;
         egui::CentralPanel::default().show(ctx, |ui| {
             // Panel de controles en la parte superior
             ui.vertical(|ui| {
-                ui.label("Obj file:");
-                ui.text_edit_singleline(&mut self.file_path);
-                if ui.button("Loaf file").clicked() {
-                    // if let Err(e) = self.load_topojson_from_file(&self.file_path) {
-                    //     self.error_message = Some(format!("Error al cargar el archivo: {}", e));
-                    // } else {
-                    //     // Una vez cargado el archivo, recalcular los límites y ajustes
-                    //     self.calculate_bounds_and_fit(ui.available_rect_before_wrap());
-                    // }
-                }
                 ui.horizontal(|ui| {
                     ui.colored_label(egui::Color32::RED, "·:Penger 3D:·");
 
@@ -210,6 +204,37 @@ impl eframe::App for App3D {
                         }
                         //});
                         ui.add_space(16.0);
+                    }
+                });
+
+                ui.separator();
+
+                ui.horizontal(|ui| {
+                    ui.label("Obj file:");
+                    ui.text_edit_singleline(&mut self.file_path);
+                    if ui.button("Loaf file").clicked() {
+                        if let Err(e) = crate::files::read_obj(&self.file_path) {
+                            self.error_message = format!("Last Error: '{}'.", e);
+                            unsafe {
+                                ERROR_TIMEOUT = TIMEOUT;
+                            }
+                        } else {
+                            unsafe {
+                                // File loaded, remove error text right now!
+                                ERROR_TIMEOUT = 1;
+                            }
+                            self.error_message = "".to_string();
+                            // Una vez cargado el archivo, recalcular los límites y ajustes
+                            //self.calculate_bounds_and_fit(ui.available_rect_before_wrap());
+                        }
+                    }
+                    unsafe {
+                        ERROR_TIMEOUT -= 1;
+                        // dbg!(ERROR_TIMEOUT);
+                        if ERROR_TIMEOUT == 0 {
+                            ERROR_TIMEOUT = TIMEOUT;
+                            self.error_message = "".to_string();
+                        }
                     }
                 });
 
@@ -254,7 +279,7 @@ impl eframe::App for App3D {
 
             // El área de dibujo para el objeto 3D
             let mut available_rect_before_wrap = ui.available_rect_before_wrap();
-            available_rect_before_wrap.max.y -= 40.0; // Important for clipping
+            available_rect_before_wrap.max.y -= 50.0; // Important for clipping
             let mut painter = ui.painter_at(available_rect_before_wrap);
 
             // Dibujar un fondo para el área del mapa
@@ -263,15 +288,17 @@ impl eframe::App for App3D {
                 0.0,
                 egui::Color32::from_rgb(50, 50, 50),
             );
-            let screenr: Rect = painter.clip_rect();
-            painter.set_clip_rect(screenr);
+            // let screenr: Rect = painter.clip_rect();
+            // painter.set_clip_rect(screenr);
 
             self.draw_contents(&painter);
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
-                powered_by_egui_and_eframe(ui);
+                powered_by_egui_and_eframe_and_me(ui);
                 egui::warn_if_debug_build(ui);
-                ui.separator();
+                //ui.separator();
+                // Show last error
+                ui.colored_label(egui::Color32::YELLOW, &self.error_message);
             });
 
             // Continuous update
@@ -281,7 +308,7 @@ impl eframe::App for App3D {
 }
 
 // -- Free functions: -----------------------------------------------------
-fn powered_by_egui_and_eframe(ui: &mut egui::Ui) {
+fn powered_by_egui_and_eframe_and_me(ui: &mut egui::Ui) {
     ui.horizontal(|ui| {
         ui.spacing_mut().item_spacing.x = 0.0;
         ui.label("Powered by ");
@@ -291,6 +318,6 @@ fn powered_by_egui_and_eframe(ui: &mut egui::Ui) {
             "eframe",
             "https://github.com/emilk/egui/tree/master/crates/eframe",
         );
-        ui.label(".");
+        ui.label(". © Antonio-M. Corbi 2026");
     });
 }
