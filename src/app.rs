@@ -14,7 +14,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // -- Uses: ---------------------------------------------------------------
-use crate::types::{Axe, Lines, Point2D, Point3D, Points};
+use crate::types::{Axe, Line, Lines, Point2D, Point3D, Points};
 use egui::{pos2, remap, Color32, Pos2, Rect, Stroke};
 
 // -- Constants: ----------------------------------------------------------
@@ -35,8 +35,8 @@ pub struct App3D {
     zoom: f32,
     file_path: String,
     error_message: String,
-    vs: Points,
-    fs: Lines,
+    vs: Vec<Point3D>,
+    fs: Vec<Vec<usize>>,
 }
 
 // -- Implementation App3D: -----------------------------------------------
@@ -52,31 +52,10 @@ impl App3D {
             zoom: 1.0,
             file_path: String::new(),
             error_message: String::new(),
-            vs: crate::penger::VS,
-            fs: crate::penger::FS,
+            vs: crate::penger::VS.to_vec(),
+            fs: crate::penger::FS.to_vec(),
         }
     }
-
-    // fn draw_circle(&self, painter: &egui::Painter) {
-    //     // Obtener las dimensiones
-    //     // let width = painter.clip_rect().width();
-    //     // let height = painter.clip_rect().height();
-    //
-    //     let world: Rect = Rect::from_min_max(pos2(0.0, 0.0), pos2(100.0, 100.0));
-    //     let screen = painter.clip_rect();
-    //     let scrx = remap(50.0, world.min.x..=world.max.x, screen.min.x..=screen.max.x);
-    //     let scry = remap(50.0, world.min.y..=world.max.y, screen.min.y..=screen.max.y);
-    //
-    //     // También puedes obtener los límites
-    //     // let min = painter.clip_rect().min; // Esquina superior izquierda (Pos2)
-    //     // let max = painter.clip_rect().max; // Esquina inferior derecha (Pos2)
-    //
-    //     let centro = pos2(scrx, scry);
-    //     let radio = 1.0 * self.zoom;
-    //     let color = Color32::from_rgb(255, 255, 255);
-    //
-    //     painter.circle_filled(centro, radio, color);
-    // }
 
     fn draw_point(p: Point2D, zoom: f32, painter: &egui::Painter) {
         // También puedes obtener los límites
@@ -112,7 +91,7 @@ impl App3D {
         // Draw points@vertices
         if self.draw_vs {
             //for v in crate::penger::VS {
-            for v in self.vs {
+            for v in self.vs.iter() {
                 let mut a = *v;
                 a.y = -1.0 * a.y;
 
@@ -135,7 +114,7 @@ impl App3D {
         // Draw Lines between vertices
         if self.draw_fs {
             let mut lines: Vec<Pos2> = vec![];
-            for f in self.fs {
+            for f in self.fs.iter() {
                 for i in 0..f.len() {
                     let mut a = self.vs[f[i] as usize];
                     let mut b = self.vs[f[(i + 1) % f.len()] as usize];
@@ -156,11 +135,6 @@ impl App3D {
                             b = b.rotate(ANGLE, Axe::Z);
                         }
                     }
-                    // let p1 = App3D::world2screen(a.translate_z(dz).project(), painter);
-                    // let p2 = App3D::world2screen(b.translate_z(dz).project(), painter);
-
-                    // let p1 = a.translate_z(dz).project().world2screen(worldr, screenr);
-                    // let p2 = b.translate_z(dz).project().world2screen(worldr, screenr);
 
                     let p1 = a.convert_to_2D(dz, &worldr, &screenr);
                     let p2 = b.convert_to_2D(dz, &worldr, &screenr);
@@ -218,21 +192,29 @@ impl eframe::App for App3D {
                 ui.horizontal(|ui| {
                     ui.label("Obj file:");
                     ui.text_edit_singleline(&mut self.file_path);
-                    if ui.button("Loaf file").clicked() {
-                        if let Err(e) = crate::files::read_obj(&self.file_path) {
-                            self.error_message = format!("Last Error: '{}'.", e);
-                            unsafe {
-                                ERROR_TIMEOUT = TIMEOUT;
+                    if ui.button("Load file").clicked() {
+                        match crate::files::read_obj(&self.file_path) {
+                            Err(e) => {
+                                // Error reading the objfile
+                                self.error_message = format!("Last Error: '{}'.", e);
+                                unsafe {
+                                    ERROR_TIMEOUT = TIMEOUT;
+                                }
                             }
-                        } else {
-                            // Process obj file just read
-                            unsafe {
-                                // File loaded, remove error text right now!
-                                ERROR_TIMEOUT = 1;
+
+                            Ok((points, lines)) => {
+                                // We had success reading the objfile
+                                // 1. Process obj file just read
+                                self.vs = points;
+                                self.fs = lines;
+
+                                // 2. Restart timeout values
+                                unsafe {
+                                    // File loaded, remove error text right now!
+                                    ERROR_TIMEOUT = 1;
+                                }
+                                self.error_message = "".to_string();
                             }
-                            self.error_message = "".to_string();
-                            // Una vez cargado el archivo, recalcular los límites y ajustes
-                            //self.calculate_bounds_and_fit(ui.available_rect_before_wrap());
                         }
                     }
                     unsafe {
@@ -289,7 +271,7 @@ impl eframe::App for App3D {
             // El área de dibujo para el objeto 3D
             let mut available_rect_before_wrap = ui.available_rect_before_wrap();
             available_rect_before_wrap.max.y -= 70.0; // Important for clipping
-            let mut painter = ui.painter_at(available_rect_before_wrap);
+            let painter = ui.painter_at(available_rect_before_wrap);
 
             // Dibujar un fondo para el área del mapa
             painter.rect_filled(
