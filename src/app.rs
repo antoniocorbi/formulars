@@ -14,7 +14,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // -- Uses: ---------------------------------------------------------------
-use crate::types::{Axe, Point2D, Point3D};
+use crate::types::{Axe, Lines, Point2D, Point3D, Points};
 use egui::{pos2, remap, Color32, Pos2, Rect, Stroke};
 
 // -- Constants: ----------------------------------------------------------
@@ -35,6 +35,8 @@ pub struct App3D {
     zoom: f32,
     file_path: String,
     error_message: String,
+    vs: Points,
+    fs: Lines,
 }
 
 // -- Implementation App3D: -----------------------------------------------
@@ -50,6 +52,8 @@ impl App3D {
             zoom: 1.0,
             file_path: String::new(),
             error_message: String::new(),
+            vs: crate::penger::VS,
+            fs: crate::penger::FS,
         }
     }
 
@@ -107,7 +111,8 @@ impl App3D {
 
         // Draw points@vertices
         if self.draw_vs {
-            for v in crate::penger::VS {
+            //for v in crate::penger::VS {
+            for v in self.vs {
                 let mut a = *v;
                 a.y = -1.0 * a.y;
 
@@ -130,10 +135,10 @@ impl App3D {
         // Draw Lines between vertices
         if self.draw_fs {
             let mut lines: Vec<Pos2> = vec![];
-            for f in crate::penger::FS {
+            for f in self.fs {
                 for i in 0..f.len() {
-                    let mut a = crate::penger::VS[f[i] as usize];
-                    let mut b = crate::penger::VS[f[(i + 1) % f.len()] as usize];
+                    let mut a = self.vs[f[i] as usize];
+                    let mut b = self.vs[f[(i + 1) % f.len()] as usize];
                     a.y = -1.0 * a.y; // Invert Y-coordinate top-down
                     b.y = -1.0 * b.y; // Invert Y-coordinate top-down
 
@@ -220,6 +225,7 @@ impl eframe::App for App3D {
                                 ERROR_TIMEOUT = TIMEOUT;
                             }
                         } else {
+                            // Process obj file just read
                             unsafe {
                                 // File loaded, remove error text right now!
                                 ERROR_TIMEOUT = 1;
