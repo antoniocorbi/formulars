@@ -19,25 +19,24 @@ use std::path::Path;
 
 use crate::types::{Lines, Point3D, Points};
 
-fn parse_face(linea: &str) -> Vec<usize> {
-    linea
-        .split_whitespace() // Separa "f", "23/1/23", "3/2/3", etc.
+fn parse_face(line: &str) -> Vec<usize> {
+    line.split_whitespace() // Separa "f", "23/1/23", "3/2/3", etc.
         .skip(1) // Ignora la "f"
-        .map(|bloque| {
+        .map(|blk| {
             // Tomamos solo lo que está antes del primer '/'
-            let indice_str = bloque.split('/').next().unwrap();
+            let idx_str = blk.split('/').next().unwrap();
             // Convertimos a número (ajustando el índice 1 del OBJ al 0 de Rust)
-            indice_str
+            idx_str
                 .parse::<usize>()
                 .expect("Índice de vértice no válido")
-                - 1
+                - 1 // Rust vector indexes start @0 not 1
         })
         .collect()
 }
 
 pub fn read_obj(fname: &str) -> io::Result<(Vec<Point3D>, Vec<Vec<usize>>)> {
     // 1. Abrir el archivo
-    let path = Path::new("assets/penger.obj");
+    let path = Path::new(fname);
     let file = File::open(path)?;
     let reader = BufReader::new(file);
 

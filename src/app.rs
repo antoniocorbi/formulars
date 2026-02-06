@@ -33,6 +33,7 @@ pub struct App3D {
     draw_fs: bool,
     angle_step: f32,
     zoom: f32,
+    file_path: String,
 }
 
 // -- Implementation App3D: -----------------------------------------------
@@ -46,29 +47,30 @@ impl App3D {
             draw_fs: true,
             angle_step: 0.0,
             zoom: 1.0,
+            file_path: String::new(),
         }
     }
 
-    fn draw_circle(&self, painter: &egui::Painter) {
-        // Obtener las dimensiones
-        // let width = painter.clip_rect().width();
-        // let height = painter.clip_rect().height();
-
-        let world: Rect = Rect::from_min_max(pos2(0.0, 0.0), pos2(100.0, 100.0));
-        let screen = painter.clip_rect();
-        let scrx = remap(50.0, world.min.x..=world.max.x, screen.min.x..=screen.max.x);
-        let scry = remap(50.0, world.min.y..=world.max.y, screen.min.y..=screen.max.y);
-
-        // También puedes obtener los límites
-        // let min = painter.clip_rect().min; // Esquina superior izquierda (Pos2)
-        // let max = painter.clip_rect().max; // Esquina inferior derecha (Pos2)
-
-        let centro = pos2(scrx, scry);
-        let radio = 1.0 * self.zoom;
-        let color = Color32::from_rgb(255, 255, 255);
-
-        painter.circle_filled(centro, radio, color);
-    }
+    // fn draw_circle(&self, painter: &egui::Painter) {
+    //     // Obtener las dimensiones
+    //     // let width = painter.clip_rect().width();
+    //     // let height = painter.clip_rect().height();
+    //
+    //     let world: Rect = Rect::from_min_max(pos2(0.0, 0.0), pos2(100.0, 100.0));
+    //     let screen = painter.clip_rect();
+    //     let scrx = remap(50.0, world.min.x..=world.max.x, screen.min.x..=screen.max.x);
+    //     let scry = remap(50.0, world.min.y..=world.max.y, screen.min.y..=screen.max.y);
+    //
+    //     // También puedes obtener los límites
+    //     // let min = painter.clip_rect().min; // Esquina superior izquierda (Pos2)
+    //     // let max = painter.clip_rect().max; // Esquina inferior derecha (Pos2)
+    //
+    //     let centro = pos2(scrx, scry);
+    //     let radio = 1.0 * self.zoom;
+    //     let color = Color32::from_rgb(255, 255, 255);
+    //
+    //     painter.circle_filled(centro, radio, color);
+    // }
 
     fn draw_point(p: Point2D, zoom: f32, painter: &egui::Painter) {
         // También puedes obtener los límites
@@ -184,6 +186,16 @@ impl eframe::App for App3D {
         egui::CentralPanel::default().show(ctx, |ui| {
             // Panel de controles en la parte superior
             ui.vertical(|ui| {
+                ui.label("Obj file:");
+                ui.text_edit_singleline(&mut self.file_path);
+                if ui.button("Loaf file").clicked() {
+                    // if let Err(e) = self.load_topojson_from_file(&self.file_path) {
+                    //     self.error_message = Some(format!("Error al cargar el archivo: {}", e));
+                    // } else {
+                    //     // Una vez cargado el archivo, recalcular los límites y ajustes
+                    //     self.calculate_bounds_and_fit(ui.available_rect_before_wrap());
+                    // }
+                }
                 ui.horizontal(|ui| {
                     ui.colored_label(egui::Color32::RED, "·:Penger 3D:·");
 
