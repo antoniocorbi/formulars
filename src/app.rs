@@ -186,7 +186,8 @@ impl eframe::App for App3D {
     /// Called each time the UI needs repainting, which may be many times per second.
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         static TIMEOUT: u32 = 200;
-        static mut ERROR_TIMEOUT: u32 = TIMEOUT;
+        static mut ERROR_TIMEOUT: u32 = 0;
+
         egui::CentralPanel::default().show(ctx, |ui| {
             // Panel de controles en la parte superior
             ui.vertical(|ui| {
@@ -229,11 +230,13 @@ impl eframe::App for App3D {
                         }
                     }
                     unsafe {
-                        ERROR_TIMEOUT -= 1;
-                        // dbg!(ERROR_TIMEOUT);
-                        if ERROR_TIMEOUT == 0 {
-                            ERROR_TIMEOUT = TIMEOUT;
-                            self.error_message = "".to_string();
+                        if ERROR_TIMEOUT > 0 {
+                            ERROR_TIMEOUT -= 1;
+                            // dbg!(ERROR_TIMEOUT);
+                            if ERROR_TIMEOUT == 0 {
+                                ERROR_TIMEOUT = TIMEOUT;
+                                self.error_message = "".to_string();
+                            }
                         }
                     }
                 });
