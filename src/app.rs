@@ -37,12 +37,14 @@ pub struct App3D {
     error_message: String,
     vs: Vec<Point3D>,
     fs: Vec<Vec<usize>>,
+    worldr: Rect,
 }
 
 // -- Implementation App3D: -----------------------------------------------
 impl App3D {
     pub fn new() -> Self {
-        let mut fs: Vec<Vec<usize>>;
+        let worldr: Rect = Rect::from_min_max(pos2(-1.0, -1.0), pos2(1.0, 1.0));
+        let fs: Vec<Vec<usize>>;
 
         // Convertimos el &[&[usize]] a Vec<Vec<usize>>
         fs = crate::penger::FS
@@ -62,6 +64,7 @@ impl App3D {
             error_message: String::new(),
             vs: crate::penger::VS.to_vec(),
             fs,
+            worldr,
         }
     }
 
@@ -86,7 +89,7 @@ impl App3D {
 
     pub fn draw_object3D(&self, painter: &egui::Painter) {
         let dz = MAX_ZOOM - self.zoom;
-        let worldr: Rect = Rect::from_min_max(pos2(-1.0, -1.0), pos2(1.0, 1.0));
+        let worldr: Rect = self.worldr;
         let screenr: Rect = painter.clip_rect();
         static mut ANGLE: f32 = 0.0;
         unsafe {
@@ -210,11 +213,12 @@ impl eframe::App for App3D {
                                 }
                             }
 
-                            Ok((points, lines)) => {
+                            Ok((points, lines, wr)) => {
                                 // We had success reading the objfile
                                 // 1. Process obj file just read
                                 self.vs = points;
                                 self.fs = lines;
+                                self.worldr = wr;
 
                                 // 2. Restart timeout values
                                 unsafe {

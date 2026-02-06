@@ -34,11 +34,14 @@ fn parse_face(line: &str) -> Vec<usize> {
         .collect()
 }
 
-pub fn read_obj(fname: &str) -> io::Result<(Vec<Point3D>, Vec<Vec<usize>>)> {
+pub fn read_obj(fname: &str) -> io::Result<(Vec<Point3D>, Vec<Vec<usize>>, egui::Rect)> {
     // 1. Abrir el archivo
     let path = Path::new(fname);
     let file = File::open(path)?;
     let reader = BufReader::new(file);
+    let minxy: egui::Pos2 = egui::pos2(f32::MAX, f32::MAX);
+    let maxxy: egui::Pos2 = egui::pos2(f32::MIN, f32::MIN);
+    let mut worldr: egui::Rect = egui::Rect::from_min_max(minxy, maxxy);
 
     // 2. Iterar sobre las líneas de forma eficiente
     let mut vs = vec![];
@@ -67,6 +70,20 @@ pub fn read_obj(fname: &str) -> io::Result<(Vec<Point3D>, Vec<Vec<usize>>)> {
                 z: coords[2],
             };
             vs.push(p);
+
+            // Compute new worldr
+            if p.x < worldr.min.x {
+                worldr.min.x = p.x;
+            }
+            if p.y < worldr.min.y {
+                worldr.min.y = p.y;
+            }
+            if p.x > worldr.max.x {
+                worldr.max.x = p.x;
+            }
+            if p.y > worldr.max.y {
+                worldr.max.y = p.y;
+            }
         }
         // println!("{:?}", vs);
 
@@ -77,5 +94,5 @@ pub fn read_obj(fname: &str) -> io::Result<(Vec<Point3D>, Vec<Vec<usize>>)> {
         //println!("{:?}", fs);
     }
 
-    Ok((vs, fs))
+    Ok((vs, fs, worldr))
 }
