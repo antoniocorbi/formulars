@@ -282,7 +282,7 @@ impl eframe::App for App3D {
 
             // El área de dibujo para el objeto 3D
             let mut available_rect_before_wrap = ui.available_rect_before_wrap();
-            available_rect_before_wrap.max.y -= 50.0; // Important for clipping
+            available_rect_before_wrap.max.y -= 70.0; // Important for clipping
             let mut painter = ui.painter_at(available_rect_before_wrap);
 
             // Dibujar un fondo para el área del mapa
@@ -299,9 +299,10 @@ impl eframe::App for App3D {
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 powered_by_egui_and_eframe_and_me(ui);
                 egui::warn_if_debug_build(ui);
-                //ui.separator();
+                ui.separator();
                 // Show last error
                 ui.colored_label(egui::Color32::YELLOW, &self.error_message);
+                ui.separator();
             });
 
             // Continuous update
